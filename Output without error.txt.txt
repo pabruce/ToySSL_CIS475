@@ -1,0 +1,90 @@
+----Certificate Authority(CA) is created-----
+Sender's public key: Alex(n, e) = (43125029,43) now in CA , it is generated from the RSA algorithm.
+Sender's private key: Alex(n, d) = (43125029,9023395) It is generated from the RSA algorithm. It is NEVER given out.
+Receiver's public key:Maggie(n, e) = (28989431,37)  now in CA, it is generated from the RSA algorithm.
+Receiver's public key:Maggie(n, D) = (28989431,8615269) It is generated from the RSA algorithm. It is NEVER given out.
+
+
+----------Sender is created----------
+---------------Step: 1---------------
+Sender Generates Message
+message = 10
+
+---------------Step: 2---------------
+Hash Message
+Hashed Message = 2
+
+---------------Step: 3---------------
+Encrypting the message with Sender's Private Key
+Digital Signature = 7704150
+
+---------------Step: 4---------------
+Generating Session Key
+Session Key = 37369
+
+---------------Step: 5---------------
+Encrypting the Session Key with Receiver's Public Key using RSA Algorithm
+Receiver's N is: 28989431
+Receiver's E is: 37
+The Encrypted Session key with the receiver's public key = 11831648
+
+---------------Step: 6---------------
+Encrypting the message with Symmetric Key
+Encrypted Message = 37379
+
+---------------Step: 7---------------
+Encrypting the Digital Signature with Symmetric Key
+Encrypted Digital Signature = 7741519
+
+---------------Step: 8---------------
+Packet to be sent to network is :Message = 37379
+Signature = 7741519
+SessionKey = 11831648
+
+----- Receiver is created -------
+----Network is created-----
+
+ ------Sender sends the test packet to Receiver through internet
+
+||||||||||||||||||||||||||||||||||||||||||||| 
+||||||||||||||||||||||||||||||||||||||||||||| 
+------Asumme perfect Internet with no error----- 
+||||||||||||||||||||||||||||||||||||||||||||| 
+||||||||||||||||||||||||||||||||||||||||||||| 
+
+------Receiver receives the test packet through network
+----------------STEP:1--------------
+Receiver Receives the packet from Internet rcvPacket 
+----------------STEP:2--------------
+Split the Packet
+Packet is: Message = 37379
+Signature = 7741519
+SessionKey = 11831648
+
+
+----------------STEP:3--------------
+Decrypting the Session Key with RECEIVER'S PRIVATE KEY
+Encrypted Session Key = 11831648
+Decrypted Session Key = 37369
+
+----------------STEP:4--------------
+Decrypting the Message using DECRYPTED SESSION KEY
+Decrypted Message = 10
+
+----------------STEP:5--------------
+Decrypting the Signature using the SESSION KEY
+Decrypted Signature = 7704150
+
+----------------STEP:6--------------
+Hash the Message
+Hashed Message = 2
+
+----------------STEP:7--------------
+Decrypting the Signature using the SENDER'S PUBLIC KEY
+Decrypted Signature = 2
+
+----------------STEP:8--------------
+Comparing the Hashed Hessages.
+If they are NOT EQUAL there are errors.
+
+No error in the Packet!
